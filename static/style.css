@@ -1,0 +1,239 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&family=Nunito&display=swap");
+
+:root {
+  --color-background: #2e4052;
+  --color-secondary: #faff81;
+  --color-primary: #5ab1bb;
+  --color-accent: #ef233c;
+  --color-input-bg: rgba(255, 255, 255, 0.2);
+  --color-border: #bfbfbf;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  background-color: var(--color-background);
+  height: 100vh;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+div:focus {
+  outline: none;
+}
+
+section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+.title-input {
+  width: 45%;
+  border: 1px solid var(--color-border);
+  border-radius: 3px;
+  background-color: var(--color-input-bg);
+  padding: 0.5em 1.5em;
+  margin: 0 3em;
+  color: white;
+  outline: none;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-primary);
+  padding: 1em 3rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+  max-height: 4em;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-family: "Nunito", sans-serif !important;
+  color: var(--color-secondary);
+  font-size: 1.3rem;
+}
+
+.logo img {
+  max-width: 25%;
+}
+
+.nav-list {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  align-items: center;
+  gap: 1.3rem;
+  font-family: "Montserrat", sans-serif;
+}
+
+.active {
+  position: relative;
+  color: var(--color-secondary) !important;
+}
+
+.active::after {
+  content: "";
+  position: absolute;
+  bottom: -60%;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background-color: var(--color-secondary);
+  border-radius: 2em;
+  z-index: 2;
+  transition: 500ms ease;
+}
+
+.filename-input {
+  width: 100%;
+  margin: 2em 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 20px;
+}
+
+.button-secondary {
+  font-size: 16px;
+  background-color: transparent !important;
+  padding: 0.3em 0.4em;
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+  border-radius: 5px;
+}
+
+.button-primary {
+  font-size: 16px;
+  display: inline-block;
+  max-width: 8em;
+  padding: 0.4em 1.5em;
+  border: none;
+  color: white;
+  background-color: var(--color-accent);
+  border-radius: 5px;
+  filter: drop-shadow(0px 1px 15px rgba(0, 0, 0, 0.1));
+  transition: transform 150ms ease;
+}
+
+.button-primary:hover {
+  transform: translateY(-10%);
+}
+
+#notearea {
+  resize: none;
+  margin: 0 5em;
+  width: 100%;
+  min-height: 65vh;
+  padding: 1em 2em;
+  background-color: var(--color-input-bg);
+  border: 1px solid var(--color-border);
+  color: white;
+  font-size: 1rem;
+}
+
+.register-form {
+  margin: 8% 22%;
+  background-color: rgba(0, 0, 0, 0.2);
+  display: grid;
+  justify-self: center;
+  align-self: center;
+  place-items: center;
+  border-radius: 10px;
+}
+
+.fields {
+  margin: 1em;
+  display: flex;
+  flex-direction: column;
+}
+
+.register-form h3 {
+  color: var(--color-secondary);
+  font-size: 2rem;
+  margin: 0.5em 0;
+}
+
+.field-items {
+  color: white;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  text-align: right;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.large-width {
+  min-width: 110px !important;
+}
+
+.buttons {
+  min-width: 100%;
+  display: flex;
+  margin: 1em 0 2em 0;
+  justify-content: space-evenly;
+}
+
+.link {
+  color: var(--color-accent);
+  font-size: 14px;
+}
+
+.user-navs {
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  list-style: none;
+  padding: 1em;
+  background-color: #ffffff;
+  max-height: 250px;
+  height: 120px;
+  border-radius: 5px;
+  z-index: 1;
+}
+
+.user-navs-active {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.user-navs::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: -13%;
+  right: 45%;
+  border-left: 8px solid transparent;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid white;
+  border-right: 8px solid transparent;
+  vertical-align: middle;
+  z-index: -1;
+}
+
+.user-nav-items a {
+  color: black;
+}
+
+.user-nav-items a:hover {
+  color: var(--color-primary);
+  transition: color 100ms ease;
+}

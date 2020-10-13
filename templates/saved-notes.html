@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}
+Saved Notes
+{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="../static/css/saved-notes.css">
+{% endblock %}
+{% block content %}
+<br>
+<div class="notes">
+{% for file in files %}
+
+<div class="note-container">
+    <div class="note-title">
+        {{file}}
+    </div>
+    <p class="note-contents">
+        {{files[file]}}
+    </p>
+    <div class="note-actions">
+        <a href="">
+            <img src="../static/imgs/right-quote.svg" alt="quote it">
+        </a>
+        <a class="delete-btn">
+            <img src="../static/imgs/delete.svg" alt="">
+        </a>
+    </div>
+</div>
+
+{% endfor %}
+</div>
+
+<script>
+    const deleteButtons = document.querySelectorAll('.delete-btn');
+    console.log(deleteButtons);
+    deleteButtons.forEach(element => {
+        element.addEventListener('click', () => {
+            const parentOfButton = element.parentNode;
+            const noteContainer = parentOfButton.parentNode;
+            const noteTitle = noteContainer.querySelector('.note-title');
+            console.log(noteTitle.textContent);
+        });
+    });
+</script>
+
+{% endblock %}

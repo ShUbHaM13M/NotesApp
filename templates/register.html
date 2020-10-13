@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}
+Register
+{% endblock %}
+{% block content %}
+<form action="#" method="POST" class="register-form">
+    <h3>Register</h3>
+    <section class="fields">
+        <div class="field-items">
+            <label for="un">UserName : </label>
+            <input type="text" name="un" id="username">
+        </div>
+        <div class="field-items">
+            <label for="em">Email : </label>
+            <input type="email" name="em" id="email">
+        </div>
+        <div class="field-items">
+            <label for="pwd">Password : </label>
+            <input type="password" name="pwd" id="password">
+        </div>
+        <div class="field-items">
+            <label for="cpwd">Renter Password : </label>
+            <input type="password" name="cpwd" id="cpassword">
+        </div>
+    </section>
+
+    <section class="buttons">
+        <input type="reset" value="Clear" class="button-secondary large-width">
+        <button class="button-primary" type="submit">Register</button>
+    </section>
+
+</form>
+{% endblock %}

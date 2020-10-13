@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block title %}
+Notes
+{% endblock %}
+{% block content %}
+<main>
+    <form action="/download_zip" method="POST"><input type="hidden" name="param1" value="value1"></form>
+    <form action="{{ url_for("home")}}" method="post" id="note">
+        <section class="filename-input">
+            <label for="filename">Title :- </label>
+            <div id="heading" contenteditable="true" class="title-input">Title goes here</div>
+            {% if 'user' in session %}
+            <button class="button-primary" type="button" id="btn-save">Save</button>
+            {% else %}
+            <button class="button-primary" type="button" id="btn-save">Download</button>
+            {% endif %}
+        </section>
+        <section class="content-editor">
+
+            <div class="editor" id="sampleeditor">
+            </div>
+            <div class="sample-toolbar">
+                <div class="formatting-tools">
+                    <a href="javascript:void(0)" onclick="format('bold')"><span class="fa fa-bold fa-fw"></span></a>
+                    <a href="javascript:void(0)" onclick="format('italic')"><span class="fa fa-italic fa-fw"></span></a>
+                    <a href="javascript:void(0)" onclick="format('insertunorderedlist')"><span
+                            class="fa fa-list fa-fw"></span></a>
+                    <a href="javascript:void(0)" onclick="setUrl()"><span class="fa fa-link fa-fw"></span></a>
+                </div>
+                <div>
+                    <span style="display: inline-block;">
+                        <input id="txtFormatUrl" placeholder="url" class="form-control">
+                    </span>
+                </div>
+            </div>
+        </section>
+    </form>
+</main>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="../static/download.js"></script>
+<script>
+    document.execCommand('defaultParagraphSeparator', false, 'p');
+
+    document.addEventListener('keydown', event => {
+        if (event.key === "enter") {
+            document.execCommand('insertLineBreak');
+            event.preventDefault();
+        };
+    });
+
+    $(document).ready(function (event) {
+        $('#btn-save').on('click', function (event) {
+            const title = $('.title-input').text();
+            const content = document.querySelector('.editor');
+
+            const contentText = document.querySelector('.editor').innerText;
+            console.log(contentText);
+            $.ajax({
+                data: {
+                    fileTitle: title,
+                    fileContent: contentText,
+                },
+                type: 'POST',
+                url: '/home',
+                success: download.bind(true, "text/html", title + '.txt'),
+            });
+        });
+    });
+
+    window.addEventListener('load', function () {
+        document.querySelector('#sampleeditor').setAttribute('contenteditable', 'true');
+    });
+
+    function format(command, value) {
+        document.execCommand(command, false, value);
+    }
+
+    function setUrl() {
+        var url = document.getElementById('txtFormatUrl').value;
+        var sText = document.getSelection();
+        document.execCommand('insertHTML', false, '<a href="' + url + '" target="_blank">' + sText + '</a>');
+        document.getElementById('txtFormatUrl').value = '';
+    }
+
+    const formatToolsContainer = $('.formatting-tools')
+    for (const child of formatToolsContainer.children()) {
+        child.addEventListener('click', () => {
+            const temp = child.querySelector('span');
+            temp.classList.toggle('selected');
+        });
+    }
+</script>
+
+{% endblock %}

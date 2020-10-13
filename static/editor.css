@@ -1,0 +1,81 @@
+.title-input {
+    padding: 0.4em 1.5em;
+    font-size: 14px;
+    margin: 0 1.5em;
+}
+
+.content-editor {
+    display: flex;
+    flex-direction: column;
+    margin: 2em;
+}
+
+.editor {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    width: 100%;
+    border: solid 1px #ccc;
+    padding: 20px;
+    min-height: 55vh;
+    max-height: 55vh;
+    overflow-y: auto;
+    resize: none;
+    font-size: 16px;
+    outline: none;
+    max-width: 50em;
+    scrollbar-width: 15px;
+    scrollbar-color: var(--color-primary) rgba(255, 255, 255, 0.2);
+}
+
+.editor::-webkit-scrollbar {
+    width: 15px;
+}
+
+.editor::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.editor::-webkit-scrollbar-thumb {
+    background: var(--color-primary);
+    border-radius: 5px;
+}
+
+.editor a {
+    color: rgba(0, 110, 200);
+}
+
+.sample-toolbar {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    border: solid 1px #ddd;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 5px;
+    max-width: 50em;
+}
+
+.sample-toolbar>span {
+    cursor: pointer;
+}
+
+.form-control {
+    color: rgba(255, 255, 255, 0.8);
+    width: 50vh;
+    padding: 5px;
+    border: rgba(255, 255, 255, 0.2) 1px solid;
+    background-color: transparent;
+    outline: none;
+}
+
+.fa {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.selected {
+    color: var(--color-secondary);
+}
+
+.sample-toolbar>span:hover {
+    text-decoration: underline;
+}
