@@ -1,2 +1,0 @@
-
-            This is a test file lets see if the contents are stored and i get the response in the ajax callback 
