@@ -1,41 +1,33 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&family=Nunito&display=swap");
 
-:root {
-    --color-background: #2e4052;
-    --color-secondary: #faff81;
-    --color-primary: #5ab1bb;
-    --color-accent: #ef233c;
-    --color-input-bg: rgba(255, 255, 255, 0.2);
-    --color-border: #bfbfbf;
-}
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    background-color: var(--color-background);
-    height: 100vh;
+.splash-container {
     display: grid;
     place-content: center;
+    height: 100%;
+    width: 100%;
+    background-color: #2e4052;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 3;
 }
 
-.container {
+.splash-background {
     display: flex;
+    flex-direction: row;
     align-items: center;
-    gap: 10px;
+    gap: 1.5em;
 }
 
-.logo>img {
+.img-holder>img {
     display: block;
 }
 
 
 .name {
-    color: var(--color-secondary);
+    color: #faff81;
     font-family: 'Nunito';
     transform: translateX(-12%);
-    z-index: -1;
+    z-index: 2;
 }

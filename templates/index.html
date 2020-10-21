@@ -36,9 +36,14 @@ Notes
         </section>
     </form>
 </main>
+<p class="saved-message">Saved</p>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="../static/download.js"></script>
 <script>
+
+    $('.home').addClass('active');
+    $('.about').removeClass('active');
+
     document.execCommand('defaultParagraphSeparator', false, 'p');
 
     document.addEventListener('keydown', event => {
@@ -54,7 +59,6 @@ Notes
             const content = document.querySelector('.editor');
 
             const contentText = document.querySelector('.editor').innerText;
-            console.log(contentText);
             $.ajax({
                 data: {
                     fileTitle: title,
@@ -62,10 +66,38 @@ Notes
                 },
                 type: 'POST',
                 url: '/home',
-                success: download.bind(true, "text/html", title + '.txt'),
+                success: () => {
+                    const sessionUser = "{{ session.user }}";
+                    if (sessionUser === "")
+                        downloadFile(title)
+                    else {
+                        showSavedMessage();
+                    }
+                }
             });
         });
     });
+
+    function showSavedMessage() {
+        $('.saved-message').css('display', "block");
+        setTimeout(() => {
+            $('.saved-message').animate(
+                {
+                    opacity: "0",
+                }, 500, () => {
+                    $('.saved-message').css('display', 'none');
+                }
+            )
+        }, 1000);
+    }
+
+    function downloadFile(fileName) {
+        var blob = new Blob([[fileName]], { type: 'text/html;charset=utf-8' });
+        var link = document.createElementNS('http://www.w3.org/1999/xhtml', 'a');
+        link.href = URL.createObjectURL(blob);
+        link.download = fileName + '.txt';
+        link.click();
+    }
 
     window.addEventListener('load', function () {
         document.querySelector('#sampleeditor').setAttribute('contenteditable', 'true');

@@ -6,22 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notes</title>
     <link rel="stylesheet" href="../static/splash.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>   
 </head>
 
 <body>
 
-    <div class="container">
-        <div class="logo"><img src="../static/NotesLogo.svg" alt="Logo"></div>
-        <div class="name">
-            <h1>Notes</h1>
+    <div class="splash-container">
+        <div class="splash-background">
+            <div class="img-holder"><img src="../static/NotesLogo.svg" alt="Logo"></div>
+            <div class="name">
+                <h1>Notes</h1>
+            </div>
         </div>
     </div>
 
     <script>
-        setInterval(() => {
-            window.location.replace("{{url_for('home')}}")
-        }, 3000);
 
         const timeline = gsap.timeline({
             defaults: {
@@ -29,7 +28,7 @@
             }
         });
 
-        timeline.fromTo('.logo', {
+        timeline.fromTo('.img-holder', {
             opacity: 0,
             x: "100%",
         }, {
@@ -47,6 +46,17 @@
             opacity: 1,
             duration: 1,
         });
+
+        timeline.to(".splash-container", {
+        y: "-100%",
+        duration: 1,
+        delay: 1,
+        onComplete: () => {
+            window.location.replace("{{url_for('home')}}")
+            }
+        }, "-=1",
+        );
+
     </script>
 
 </body>

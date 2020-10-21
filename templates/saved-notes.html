@@ -8,6 +8,13 @@ Saved Notes
 {% endblock %}
 {% block content %}
 <br>
+{% if files|length == 0 %}
+<div class="message">
+    <p>
+        No Saved notes here...
+    </p>
+</div>
+{% else %}
 <div class="notes">
 {% for file in files %}
 
@@ -29,19 +36,63 @@ Saved Notes
 </div>
 
 {% endfor %}
+{% endif %}
+</div>
+
+<div class="delete-container">
+    <div class="delete-dialog">
+        <div class="title">Delete ?</div>
+        <div class="main">
+            <div class="filename"></div>
+            <div class="btns">
+                <button id="cancel">Cancel</button>
+                <button class="button-primary" id="delete">Delete ?</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
     const deleteButtons = document.querySelectorAll('.delete-btn');
-    console.log(deleteButtons);
     deleteButtons.forEach(element => {
         element.addEventListener('click', () => {
             const parentOfButton = element.parentNode;
             const noteContainer = parentOfButton.parentNode;
-            const noteTitle = noteContainer.querySelector('.note-title');
-            console.log(noteTitle.textContent);
+            const noteTitleDiv = noteContainer.querySelector('.note-title');
+            let fileName = noteTitleDiv.textContent;
+            
+            const deleteTitle = $('.main .filename');
+            deleteTitle.html(`<span style="color: var(--color-primary);">${fileName}</span> will be deleted..!`);
+
+            const deleteContainer = $('.delete-container');
+            deleteContainer.addClass('delete-container-active');
+            deleteContainer.on({
+                'click': () => {
+                    $('#delete').off('click');
+                    deleteContainer.removeClass('delete-container-active');
+                },
+            });
+
+            $('#delete').click( () => {
+                $.ajax({
+                    type: 'POST',
+                    url: '/delete-file/' + fileName,
+                    success: function(response) {
+                        if (response) {
+                            noteContainer.classList.add('delete');
+                            setTimeout(() => {
+                                noteContainer.style.display = "none";
+                            }, 350);
+                            return;
+                        }
+                    }
+                });
+            });
         });
     });
+
+
+
 </script>
 
 {% endblock %}

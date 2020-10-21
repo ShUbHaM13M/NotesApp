@@ -1,4 +1,5 @@
-./__pycache__
-./.vscode
-./Users
-./test.db
+__pycache__/
+.vscode/
+Users/
+test.db
+*.db

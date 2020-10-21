@@ -1,6 +1,7 @@
 from itertools import combinations_with_replacement
 import os
 from os import name
+import re
 
 from flask import (Flask, flash, redirect,  render_template,
                    request, session, url_for, jsonify,
@@ -21,6 +22,11 @@ root = os.getcwd()
 
 if not os.path.exists('./Users'):
     os.makedirs('Users')
+
+if not os.path.exists('./Users/Guest'):
+    os.chdir('./Users')
+    os.mkdir('Guest')
+    os.chdir(root)
 
 
 class User(db.Model):
@@ -82,14 +88,22 @@ def get_file(name):
     else:
         user = "Guest"
     try:
-        # return send_file(f'{root}/Users/{user}/{file_name}', as_attachment=True)
         return send_from_directory(f'./Users/{user}/', filename=file_name, as_attachment=True)
     except FileNotFoundError:
         abort(404)
 
 
+@app.route('/delete-file/<name>', methods=["POST", ""])
+def delete_file(name):
+    os.chdir(session['path'])
+    file_name = f"{name.strip()}.txt"
+    os.remove(file_name)
+    return redirect(url_for('savedNotes'))
+
+
 @app.route('/register', methods=['POST', 'GET'])
 def register():
+    os.chdir(root)
     if request.method == "POST":
         user = request.form["un"]
         email = request.form["em"]
@@ -132,26 +146,24 @@ def login():
             session['user'] = isRegisteredUser.username
             session['path'] = isRegisteredUser.path
         else:
-            return "User not found check username and password again"
+            flash(u'User not found check username and password again', 'error')
+            return redirect(url_for('login'))
 
         return redirect(url_for('home'))
     else:
         if "user" in session:
-            return
+            return "already logged in"
         return render_template('login.html')
 
 
 @app.route('/saved-notes')
-def saved_notes():
+def savedNotes():
     user = session["user"]
     flash(f'{user}')
     os.chdir(session['path'])
     file_data = [open(f, 'r').read() for f in os.listdir()]
     file_names = [f.rsplit('.')[0] for f in os.listdir()]
-    if len(file_names) == 0:
-        return 'No saved Notes save some notes'
-    else:
-        return render_template('saved-notes.html', files=dict(zip(file_names, file_data)))
+    return render_template('saved-notes.html', files=dict(zip(file_names, file_data)))
 
 
 @app.route('/logout')
@@ -160,6 +172,16 @@ def logout():
         session.clear()
         return redirect(url_for("home"))
     return redirect(url_for("login"))
+
+
+@app.route('/about')
+def about():
+    try:
+        user = session['user']
+        flash(user)
+    except:
+        pass
+    return render_template("about.html")
 
 
 if __name__ == "__main__":

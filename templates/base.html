@@ -22,10 +22,10 @@
       </div>
       <ul class="nav-list">
         <li class="nav-items">
-          <a href="{{url_for('home')}}" class="active"> Home </a>
+          <a href="{{url_for('home')}}" class="home"> Home </a>
         </li>
         <li class="nav-items">
-          <a href="#"> About </a>
+          <a href="{{url_for('about')}}" class="about"> About </a>
         </li>
         <li class="nav-items">
           {% if 'user' in session %}
@@ -56,14 +56,14 @@
     {% block content %} {% endblock %}
     {% if 'user' in session %}
     <ul class="user-navs">
-      <li class="user-nav-items"><a href="{{url_for('saved_notes')}}">Saved Notes</a></li>
+      <li class="user-nav-items"><a href="{{url_for('savedNotes')}}">Saved Notes</a></li>
       <li class="user-nav-items"><a href="#">Settings</a></li>
       <li class="user-nav-items"><a href="{{url_for('logout')}}">Logout</a></li>
     </ul>
     {% endif %}
   </div>
 
-
+  
   <script src="../static/app.js"></script>
   <script type=text/javascript> $SCRIPT_ROOT={{ request.script_root|tojson|safe }}; </script>
   <script>
