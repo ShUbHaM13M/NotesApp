@@ -11,6 +11,34 @@
     integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   {% block head %} {% endblock %}
+  <style>
+    .error-message {
+      background-color: #fc8080;
+      border: 1px solid var(--color-accent);
+      color: var(--color-accent);
+      position: absolute;
+      bottom: 10%;
+      left: 50%;
+      transform: translate(-50%);
+      padding: 0.2em 0.5em;
+      border-radius: 5px;
+      text-align: center;
+      font-size: 16px;
+      animation: fade 500ms ease 1500ms forwards;
+    }
+
+    @keyframes fade {
+      0% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, 20%);
+        display: none;
+      }
+    }
+
+  </style>
 </head>
 
 <body>

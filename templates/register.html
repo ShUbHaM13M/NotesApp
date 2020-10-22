@@ -2,6 +2,13 @@
 {% block title %}
 Register
 {% endblock %}
+{% block head %}
+    <style>
+        body {
+            overflow: hidden;
+        }
+    </style>
+{% endblock %}
 {% block content %}
 <form action="#" method="POST" class="register-form">
     <h3>Register</h3>
@@ -30,4 +37,16 @@ Register
     </section>
 
 </form>
+
+
+{% with errors = get_flashed_messages(category_filter=["error"]) %}
+{% if errors %}
+  <div class="error-message">
+    {%- for msg in errors %}
+    {{ msg }}
+    {% endfor -%}
+  </div>
+{% endif %}
+{% endwith %}
+
 {% endblock %}

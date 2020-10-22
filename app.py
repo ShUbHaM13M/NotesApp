@@ -19,14 +19,12 @@ app.config['SECRET_KEY'] = 'SeyTonic13'
 db = SQLAlchemy(app)
 
 root = os.getcwd()
+fExtension = '.txt'
 
 if not os.path.exists('./Users'):
     os.makedirs('Users')
 
-if not os.path.exists('./Users/Guest'):
-    os.chdir('./Users')
-    os.mkdir('Guest')
-    os.chdir(root)
+os.chdir(root)
 
 
 class User(db.Model):
@@ -58,20 +56,8 @@ def home():
             os.chdir(session['path'])
             file_name = request.form['fileTitle']
             file_content = request.form['fileContent']
-            file = open(f"{file_name}.txt", 'w', encoding='utf-8')
-            file.write(file_content)
-            file.close()
+            _file_operation(file_name, file_content)
             return redirect(url_for('home'))
-
-        else:
-            os.chdir(f'{root}/Users/Guest')
-            file_name = request.form['fileTitle']
-            file_content = request.form['fileContent']
-            file = open(f'{file_name}.txt', 'w', encoding='utf-8')
-            file.write(file_content)
-            file.close()
-            return redirect(url_for(f"get_file", name=file_name))
-
     else:
         if "user" in session:
             user = session["user"]
@@ -80,15 +66,20 @@ def home():
         return render_template('index.html')
 
 
+def _file_operation(file_name, file_content):
+    file = open(f"{file_name}{fExtension}", 'w', encoding='utf-8')
+    file.write(file_content)
+    file.close()
+
+
 @app.route("/get-file/<name>")
 def get_file(name):
-    file_name = f"{name}.txt"
     if "user" in session:
         user = session["user"]
     else:
-        user = "Guest"
+        return redirect(url_for('home'))
     try:
-        return send_from_directory(f'./Users/{user}/', filename=file_name, as_attachment=True)
+        return send_from_directory(f'./Users/{user}/', filename=name, as_attachment=True)
     except FileNotFoundError:
         abort(404)
 
@@ -96,7 +87,7 @@ def get_file(name):
 @app.route('/delete-file/<name>', methods=["POST", ""])
 def delete_file(name):
     os.chdir(session['path'])
-    file_name = f"{name.strip()}.txt"
+    file_name = f"{name.strip()}{fExtension}"
     os.remove(file_name)
     return redirect(url_for('savedNotes'))
 
@@ -126,9 +117,11 @@ def register():
             else:
                 return redirect(url_for('register'))
         except exc.IntegrityError:
-            return f'{user} already taken'
+            flash('Entered Username is already taken', 'error')
+            return redirect(url_for('register'))
         except FileExistsError:
-            return f'{user} already taken'
+            flash('Entered Username is already taken', 'error')
+            return redirect(url_for('register'))
 
     else:
         return render_template('register.html')
@@ -152,7 +145,7 @@ def login():
         return redirect(url_for('home'))
     else:
         if "user" in session:
-            return "already logged in"
+            return redirect(url_for('home'))
         return render_template('login.html')
 
 
