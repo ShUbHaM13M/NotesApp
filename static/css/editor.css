@@ -79,3 +79,78 @@
 .sample-toolbar>span:hover {
     text-decoration: underline;
 }
+
+.fa-caret-down {
+    margin-left: 5px;
+}
+
+.download-container {
+    position: relative;
+}
+
+.file-ext-dialog {
+    position: absolute;
+    top: 140%;
+    right: -5%;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    width: 130px;
+    height: 100px;
+    border-radius: 5px;
+    padding: 0.1em 0;
+    display: none;
+}
+
+.file-ext-dialog div {
+    text-align: center;
+    width: 100%;
+}
+
+.file-ext-dialog::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: -15%;
+    right: 15%;
+    border-left: 8px solid transparent;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid white;
+    border-right: 8px solid transparent;
+    vertical-align: middle;
+}
+
+.file-ext-dialog input {
+    height: 100%;
+    background: none;
+    border: none;
+    color: black;
+    font-size: 16px;
+    width: 100%;
+    transition: color 500ms ease;
+}
+
+.file-ext-dialog input:hover {
+    color: var(--color-primary);
+}
+
+.file-ext-dialog input:focus {
+    outline: none;
+}
+
+.btm {
+    position: relative;
+    z-index: 1;
+}
+
+.btm::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    height: 1px;
+    width: 80%;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 3;
+}

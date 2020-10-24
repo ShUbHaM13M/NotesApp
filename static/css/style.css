@@ -51,6 +51,7 @@ input[type="password"],
 }
 
 nav {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -63,7 +64,7 @@ nav {
 .logo {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 5px;
   font-family: "Nunito", sans-serif !important;
   color: var(--color-secondary);
   font-size: 1.3rem;
@@ -100,16 +101,6 @@ nav {
   transition: 500ms ease;
 }
 
-.filename-input {
-  width: 100%;
-  margin: 2em 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  font-size: 20px;
-}
-
 .button-secondary {
   font-size: 16px;
   background-color: transparent !important;
@@ -122,8 +113,7 @@ nav {
 .button-primary {
   font-size: 16px;
   display: inline-block;
-  max-width: 8em;
-  padding: 0.4em 1.5em;
+  padding: 0.4em 1em;
   border: none;
   color: white;
   background-color: var(--color-accent);
@@ -136,59 +126,8 @@ nav {
   transform: translateY(-10%);
 }
 
-#notearea {
-  resize: none;
-  margin: 0 5em;
-  width: 100%;
-  min-height: 65vh;
-  padding: 1em 2em;
-  background-color: var(--color-input-bg);
-  border: 1px solid var(--color-border);
-  color: white;
-  font-size: 1rem;
-}
-
-.register-form {
-  margin: 8% 22%;
-  background-color: rgba(0, 0, 0, 0.2);
-  display: grid;
-  justify-self: center;
-  align-self: center;
-  place-items: center;
-  border-radius: 10px;
-}
-
-.fields {
-  margin: 1em;
-  display: flex;
-  flex-direction: column;
-}
-
-.register-form h3 {
-  color: var(--color-secondary);
-  font-size: 2rem;
-  margin: 0.5em 0;
-}
-
-.field-items {
-  color: white;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  text-align: right;
-  margin-bottom: 20px;
-  width: 100%;
-}
-
 .large-width {
   min-width: 110px !important;
-}
-
-.buttons {
-  min-width: 100%;
-  display: flex;
-  margin: 1em 0 2em 0;
-  justify-content: space-evenly;
 }
 
 .link {
@@ -239,18 +178,88 @@ nav {
   transition: color 100ms ease;
 }
 
-.saved-message {
-  opacity: 0;
-  position: fixed;
-  bottom: 2%;
-  right: 5%;
-  width: 100px;
-  height: 1.8em;
-  z-index: 10;
-  font-size: 18px;
-  background-color: white;
-  text-align: center;
-  border-radius: 5px;
-  padding: 0.1em 0.5em;
-  color: var(--color-background);
+#mob-view, .mob-list {
+  display: none;
+  pointer-events: none;
+}
+
+@media screen and (max-width: 598px) {
+  .nav-list {
+    display: none;
+  }
+
+  #mob-view {
+    pointer-events: all;
+    display: block;
+    height: 1em;
+    width: 1.5em;
+  }
+
+  .mob-list {
+    pointer-events: all;
+    background-color: var(--color-primary);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: flex-start;
+    z-index: 5;
+    height: 40vh;
+    display: none;
+  }
+
+  .mob-links {
+    width: 100%;
+    height: 100%;
+    padding: 1em;
+    margin-top: 0.5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
+  .hr-base {
+    position: relative;
+    width: 100%;
+  }
+
+  .hr-base::after {
+    content: " ";
+    position: absolute;
+    top: -40%;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 1px;
+    width: 80%;
+    background-color: rgba(0, 0, 0, 0.2); 
+  }
+
+  .mob-items {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    color: white;
+    letter-spacing: 1.5px;
+    font-size: 18px
+  }
+
+  #close-btn {
+    text-align: right;
+    margin: 1.5em 2.2em;
+  }
+
+  a.button-primary {
+    min-width: 5em !important;
+    text-align: center
+  }
+
+  .active::after {
+    left: -15%;
+    top: 0;
+    width: 3px;
+    height: 100%;
+  }
 }

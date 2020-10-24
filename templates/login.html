@@ -2,10 +2,14 @@
 {% block title %}
 Login
 {% endblock %}
+
+{% block head %}
+  <link rel="stylesheet" href="../static/css/form.css">
+{% endblock %}
+
 {% block content %}
 
-
-<form action="{{ url_for("login")}}" method="POST" class="register-form">
+<form action="{{ url_for("login")}}" method="POST" class="form">
   <h3>Login</h3>
   <section class="fields">
     <div class="field-items">
@@ -17,7 +21,6 @@ Login
       <input type="password" name="pwd" id="password" />
     </div>
   </section>
-  <!-- <a href="#" class="link">Forgot Password ?</a> -->
   <section class="buttons">
     <a href="{{url_for('register')}}" class="button-secondary">Register</a>
     <button class="button-primary" type="submit">Login</button>

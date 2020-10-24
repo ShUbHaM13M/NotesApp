@@ -19,7 +19,6 @@ app.config['SECRET_KEY'] = 'SeyTonic13'
 db = SQLAlchemy(app)
 
 root = os.getcwd()
-fExtension = '.txt'
 
 if not os.path.exists('./Users'):
     os.makedirs('Users')
@@ -61,13 +60,13 @@ def home():
     else:
         if "user" in session:
             user = session["user"]
-            flash(f'{user}')
+            flash(f'{user}'[0])
             return render_template('index.html')
         return render_template('index.html')
 
 
 def _file_operation(file_name, file_content):
-    file = open(f"{file_name}{fExtension}", 'w', encoding='utf-8')
+    file = open(f"{file_name}", 'w', encoding='utf-8')
     file.write(file_content)
     file.close()
 
@@ -87,7 +86,7 @@ def get_file(name):
 @app.route('/delete-file/<name>', methods=["POST", ""])
 def delete_file(name):
     os.chdir(session['path'])
-    file_name = f"{name.strip()}{fExtension}"
+    file_name = f"{name.strip()}"
     os.remove(file_name)
     return redirect(url_for('savedNotes'))
 

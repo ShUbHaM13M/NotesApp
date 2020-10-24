@@ -2,6 +2,11 @@
 {% block title %}
 Notes
 {% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="../static/css/index.css">
+{% endblock %}
+
 {% block content %}
 <main>
     <form action="/download_zip" method="POST"><input type="hidden" name="param1" value="value1"></form>
@@ -12,7 +17,15 @@ Notes
             {% if 'user' in session %}
             <button class="button-primary" type="button" id="btn-save">Save</button>
             {% else %}
-            <button class="button-primary" type="button" id="btn-download">Download</button>
+            <div class="download-container">
+                <button class="button-primary" type="button" id="btn-download">Download<span class="fa fa-caret-down" aria-hidden="true"></span>
+                </button>
+                <div class="file-ext-dialog">
+                    <div class="ext btm"><input type="button" value=".txt"></div>
+                    <div class="ext btm"><input type="button" value=".rtf"></div>
+                    <div class="ext"><input type="button" value=".html"></div>
+                </div>
+            </div>
             {% endif %}
         </section>
         <section class="content-editor">
@@ -38,103 +51,7 @@ Notes
 </main>
 <p class="saved-message">Saved</p>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="../static/download.js"></script>
-<script>
-
-    let fExtension = '.txt'; 
-
-    $('.home').addClass('active');
-    $('.about').removeClass('active');
-
-    document.execCommand('defaultParagraphSeparator', false, 'p');
-
-    document.addEventListener('keydown', event => {
-        if (event.key === "enter") {
-            document.execCommand('insertLineBreak');
-            event.preventDefault();
-        };
-    });
-
-    function getFileInfo() {
-        const title = $('.title-input').text();
-        const content = document.querySelector('.editor');
-
-        const contentText = document.querySelector('.editor').innerText;
-        return [title, contentText];
-    }
-
-    $('#btn-download').on('click', (event) => {
-        const fileInfo = getFileInfo();
-        const fileTitle = fileInfo[0];
-        const fileContents = fileInfo[1];
-        download(fileContents, fileTitle+fExtension, "text/html");
-    });
-
-    $(document).ready(function (event) {
-        $('#btn-save').on('click', function (event) {
-            const fileInfo = getFileInfo();
-            const title = fileInfo[0];
-            const file_contents = fileInfo[1];
-            $.ajax({
-                data: {
-                    fileTitle: title,
-                    fileContent: file_contents,
-                },
-                type: 'POST',
-                url: '/home',
-                success: () => {
-                    showSavedMessage();
-                }
-            });
-        });
-    });
-
-    function showSavedMessage() {
-        $('.saved-message').animate(
-            {
-                opacity: "1",
-            }, 500, () => {
-                setTimeout(
-                    () => {
-                        $('.saved-message').animate({
-                            opacity: "0",
-                        }, 500);
-                    }, 1000
-                );
-            }
-        );
-    }
-
-    function downloadFile(fileName) {
-        var blob = new Blob([[fileName]], { type: 'text/html;charset=utf-8' });
-        var link = document.createElementNS('http://www.w3.org/1999/xhtml', 'a');
-        link.href = URL.createObjectURL(blob);
-        link.download = fileName + fExtension;
-        setTimeout(link.click(), 1000);
-    }
-
-    window.addEventListener('load', function () {
-        document.querySelector('#sampleeditor').setAttribute('contenteditable', 'true');
-    });
-
-    function format(command, value) {
-        document.execCommand(command, false, value);
-    }
-
-    function setUrl() {
-        var url = document.getElementById('txtFormatUrl').value;
-        var sText = document.getSelection();
-        document.execCommand('insertHTML', false, '<a href="' + url + '" target="_blank">' + sText + '</a>');
-        document.getElementById('txtFormatUrl').value = '';
-    }
-
-    const formatToolsContainer = $('.formatting-tools')
-    for (const child of formatToolsContainer.children()) {
-        child.addEventListener('click', () => {
-            const temp = child.querySelector('span');
-            temp.classList.toggle('selected');
-        });
-    }
-</script>
+<script src="../static/js/download.js"></script>
+<script src="../static/js/index.js"></script>
 
 {% endblock %}
