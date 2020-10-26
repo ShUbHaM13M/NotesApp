@@ -68,3 +68,19 @@
     width: 100%;
     height: 100%;
 }
+
+@media screen and (max-width: 598px) {
+    
+    #bugReportBtn {
+        min-width: 50vw !important;
+    }
+
+    .tools {
+        left: 50%;
+        right: 0;
+        transform: translate(-50%, 0);
+        width: 60px;
+        height: 60px;
+    }
+
+}

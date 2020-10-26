@@ -40,9 +40,10 @@ extensionBtns.forEach((btn) => {
 });
 
 $('#btn-download').on('click', (event) => {
-    $('.file-ext-dialog').slideToggle(
+    $('.file-ext-dialog').slideDown(
             250,
             () => {
+                $('.file-ext-dialog').css("display", "flex");
                 closeOnScreenClick('.file-ext-dialog');
             }
         );

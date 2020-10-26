@@ -1,13 +1,9 @@
-.title-input {
-    padding: 0.4em 1.5em;
-    font-size: 14px;
-    margin: 0 1.5em;
-}
 
 .content-editor {
     display: flex;
     flex-direction: column;
     margin: 2em;
+    margin-bottom: 0;
 }
 
 .editor {
@@ -153,4 +149,50 @@
     width: 80%;
     background: rgba(0, 0, 0, 0.2);
     z-index: 3;
+}
+
+@media screen and (max-width: 598px) {
+
+    .content-editor {
+        margin: 1em;
+        margin-bottom: 0;
+    }
+
+    .editor {
+        min-height: 65vh;
+    }
+
+    #btn-download {
+        min-width: 50vw !important;
+        height: 2.5em;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;    
+    }
+
+    .file-ext-dialog {
+        width: 80vw;
+        height: 25vh;
+        left: 50%;
+        transform: translateX(-50%);
+        right: 0;
+        justify-content: space-around;
+    }
+
+    .btm::after {
+        bottom: -50%;
+    }
+
+    .file-ext-dialog::after {
+        display: none;
+    }
+    
+    .sample-toolbar {
+        flex-wrap: wrap;
+    }
+
+    .form-control {
+        width: 100%;
+    }
+
 }

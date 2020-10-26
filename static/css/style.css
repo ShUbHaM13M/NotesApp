@@ -18,7 +18,8 @@
 .container {
   width: 100%;
   background-color: var(--color-background);
-  height: 100vh;
+  min-height: 100vh;
+  padding-bottom: 0.5em
 }
 
 a {
@@ -190,9 +191,15 @@ nav {
 
   #mob-view {
     pointer-events: all;
-    display: block;
-    height: 1em;
-    width: 1.5em;
+    display: inline-flex;
+    justify-content: center;
+    height: 100%;
+    width: 13%;
+  }
+
+  .ham-icon {
+    width: 100%;
+    height: 100%;
   }
 
   .mob-list {
@@ -248,7 +255,7 @@ nav {
 
   #close-btn {
     text-align: right;
-    margin: 1.5em 2.2em;
+    margin: 1em 2.9em;
   }
 
   a.button-primary {
