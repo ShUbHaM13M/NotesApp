@@ -46,15 +46,10 @@
 
 @media screen and (max-width: 598px) {
 
-    .center-container {
-        place-content: initial;
-    }
-
     .form {
-        border-radius: 0;
-        height: 100vh;
-        width: 100%;
-        padding-top: 2em;
+        margin-top: 5em;
+        max-height: 40em;
+        min-width: 75vw;
     }
 
     .field-items {
