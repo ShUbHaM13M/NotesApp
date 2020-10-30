@@ -37,30 +37,88 @@ body {
 }
 
 .note-container {
+    position: initial;
     margin: 0 auto 20px auto;
     display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: space-between;
     height: 250px;
-    min-width: 250px;
+    width: 250px;
     background-color: white;
     border-radius: 10px;
     overflow: hidden;
-    max-width: 250px;
-    min-width: 250px;
     transition: all 250ms ease-in-out;
 }
 
-.note-title {
+.close {
+    cursor: pointer;
+}
+
+.edit-note-container {
     display: flex;
-    justify-content: center;
-    background-color: #5AB1BB;
+    place-content: center;
+    opacity: 0;
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
+    height: 100%;
+    z-index: 1;
+    padding: 5em 0;
+    background-color: rgba(0, 0, 0, .6);
+}
+
+.edit-note {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 60%;
+    min-height: 80vh;
+    border-radius: 5px;
+    background-color: var(--color-background);
     color: white;
-    padding: 0.4em;
-    font-size: 22px;
+    overflow: hidden;
+}
+
+.edit-note .title-bar {
+    background-color: rgba(255, 255, 255, 0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2em;
+    height: 3em;
+}
+
+.edit-note .contents {
+    padding: 1em 2em;
+    flex: 1;
+    max-height: 66vh;
+    overflow-y: auto;
+}
+
+.edit-note .actions {
+    background-color: rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 2em;
+    height: 2.5em;
+}
+
+.note-title {
+    text-align: center;
+    background-color: #5AB1BB;
+    width: 250px;
+    min-height: 2em;
+    color: white;
+    padding: 0.4em 1em;
+    font-size: 20px;
     max-height: 2em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .note-contents {
@@ -78,6 +136,10 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 5px 2.5em;
+}
+
+.note-actions a:hover {
+    cursor: pointer;
 }
 
 .delete {
@@ -115,7 +177,7 @@ body {
     align-items: center;
     min-width: 300px;
     min-height: 150px;
-    border-radius: 10px;
+    border-radius: 5px;
     overflow: hidden;
     z-index: 3;
 }
@@ -140,6 +202,7 @@ body {
 .main .filename {
     text-align: center;
     width: 100%;
+    padding: 0 1em;
 }
 
 .main .btns {
@@ -159,4 +222,46 @@ body {
     border: 1px solid var(--color-primary);
     color: var(--color-primary);
     background: transparent; 
+}
+
+.file-ext-dialog {
+    top: -120px !important;
+    justify-content: space-evenly;
+}
+
+.file-ext-dialog::after {
+    top: 100%;
+    border-top: 8px solid white !important;
+    border-bottom: 8px solid transparent;
+}
+
+@media screen and (max-width: 847px) {
+    .edit-note {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 598px) {
+    #btn-download {
+        min-width: initial !important;
+        width: initial;
+        height: initial;   
+    }
+
+    .file-ext-dialog {
+        width: 70vw;
+        height: 25vh;
+        left: 0%;
+        transform: translate(-65%, -50%);
+        justify-content: space-around;
+    }
+
+    .edit-note-container {
+        padding: 3em 0;
+    }
+
+    .edit-note {
+        width: 95%;
+    }
+
 }

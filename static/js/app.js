@@ -25,3 +25,33 @@ function closeOnScreenClick(target) {
         }
     });
 }
+
+function saveFile(title, file_contents) {
+    $.ajax({
+        data: {
+            fileTitle: title,
+            fileContent: file_contents,
+        },
+        type: 'POST',
+        url: '/home',
+        success: () => {
+            showSavedMessage();
+        }
+    });
+}
+
+function showSavedMessage() {
+    $('.saved-message').animate(
+        {
+            opacity: "1",
+        }, 500, () => {
+            setTimeout(
+                () => {
+                    $('.saved-message').animate({
+                        opacity: "0",
+                    }, 500);
+                }, 1000
+            );
+        }
+    );
+}

@@ -62,20 +62,28 @@
           {% endif %}
         </li>
         <li class="nav-items" id="login-btn">
-          {% if 'user' in session %}
-          <a href="#"
-          class="button-primary">
-          {% with messages = get_flashed_messages() %} 
-          {% if messages %} 
-          {% for message in messages %}
-          <p id="logged-in">{{message}}</p>
-          {% endfor %}
-          {% endif %} {% endwith %}
-          </a>
+          <div class="user-navs-container">
+            {% if 'user' in session %}
+            <a href="#"
+              class="button-primary">
+              {% with messages = get_flashed_messages() %} 
+              {% if messages %} 
+              {% for message in messages %}
+              <p id="logged-in">{{message}}</p>
+              {% endfor %}
+              {% endif %}
+              {% endwith %}
+            </a>
+            <div class="user-navs">
+              <div class="user-nav-items btm"><a href="{{url_for('savedNotes')}}">Saved Notes</a></div>
+              <div class="user-nav-items btm"><a href="#">Settings</a></div>
+              <div class="user-nav-items"><a href="{{url_for('logout')}}">Logout</a></div>
+            </div>
+          </div>
           {% else %}
           <a href="{{url_for('login')}}" class="button-primary">
           <p>Login</p>
-        </a>
+          </a>
           {% endif %}
           
         </li>
@@ -99,33 +107,34 @@
           <a href="{{url_for('register')}}" class="button-secondary"> Register </a>
           {% endif %}
         </li>
-        <li class="mob-items" id="login-btn">
+        <li class="mob-items">
           {% if 'user' in session %}
-          <a href="#"
-          class="button-primary">
-          {% with messages = get_flashed_messages() %} 
-          {% if messages %} 
-          {% for message in messages %}
-          <p id="logged-in">{{ message }}</p>
-          {% endfor %}
-          {% endif %} {% endwith %}
-          </a>
-          {% else %}
-          <a href="{{url_for('login')}}" class="button-primary">
-          <p>Login</p>
-          </a>
-          {% endif %} 
+          <div class="user-navs-container">
+            <a href="#"
+            class="button-primary" id="login-btn-mob">
+            {% with messages = get_flashed_messages() %} 
+            {% if messages %} 
+            {% for message in messages %}
+            <p id="logged-in">{{ message }}</p>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            </a>
+            <div class="user-navs">
+              <div class="user-nav-items btm"><a href="{{url_for('savedNotes')}}">Saved Notes</a></div>
+              <div class="user-nav-items btm"><a href="#">Settings</a></div>
+              <div class="user-nav-items"><a href="{{url_for('logout')}}">Logout</a></div>
+            </div>
+          </div>
+            {% else %}
+            <a href="{{url_for('login')}}" class="button-primary">
+            <p>Login</p>
+            </a>
+            {% endif %}
         </li>
       </ul>
     </div>
     {% block content %} {% endblock %}
-    {% if 'user' in session %}
-    <ul class="user-navs">
-      <li class="user-nav-items"><a href="{{url_for('savedNotes')}}">Saved Notes</a></li>
-      <li class="user-nav-items"><a href="#">Settings</a></li>
-      <li class="user-nav-items"><a href="{{url_for('logout')}}">Logout</a></li>
-    </ul>
-    {% endif %}
   </div>
 
   
@@ -133,40 +142,25 @@
   <script type=text/javascript> $SCRIPT_ROOT={{ request.script_root|tojson|safe }}; </script>
   <script>
 
-    $('#login-btn').on(
-        'click', () => {
-            if ($('.user-navs').hasClass('user-navs-active')){
-                $('.user-navs').animate({
-                    opacity: 0
-                }, 250, () => {
-                    $('.user-navs').css('pointer-events', 'none');
-                    $('.user-navs').removeClass('user-navs-active');
-                });
-            }
-            else 
-            {
-                $('.user-navs').addClass('user-navs-active');
-                $('.user-navs').animate({
-                    opacity: 1,
-                }, 250, () => {
-                    $('.user-navs').css('pointer-events', 'all');
-                });
-            }
-        } 
-    );
-
-    function setUserNavLocation() {
-        const userNavs = $('.user-navs');
-        if (userNavs) {
-            userNavs.css({
-                'top': '10%',
-                'right': '2%',
-            });  
-        }
-    }
-    setUserNavLocation();
-    window.onresize = setUserNavLocation;
-    
+    $('#login-btn').on('click', (event) => {
+        $('.user-navs').slideDown(
+                250,
+                () => {
+                    $('.user-navs').css("display", "flex");
+                    closeOnScreenClick('.user-navs');
+                }
+            );
+        });
+    $('#login-btn-mob').on('click', (event) => {
+      console.log("login btn pressed")
+        $('.user-navs').slideUp(
+                250,
+                () => {
+                    $('.user-navs').css("display", "flex");
+                    closeOnScreenClick('.user-navs');
+                }
+            );
+    });
     
 </script>
 </body> </html>

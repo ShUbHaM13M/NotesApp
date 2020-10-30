@@ -12,10 +12,24 @@ document.addEventListener('keydown', event => {
     };
 });
 
+function saveFile(fileName, fileContents) {
+    console.log("saved");
+    $.ajax({
+        data: {
+            fileTitle: title,
+            fileContent: file_contents,
+        },
+        type: 'POST',
+        url: '/home',
+        success: () => {
+            showSavedMessage();
+        }
+    });
+}
+
 function getFileInfo() {
     const title = $('.title-input').text();
-    const content = document.querySelector('.editor');
-    let contentText 
+    let contentText;
 
     if (fExtension === '.txt' || fExtension === '.rtf')
         contentText = document.querySelector('.editor').innerText;
@@ -39,7 +53,7 @@ extensionBtns.forEach((btn) => {
     );
 });
 
-$('#btn-download').on('click', (event) => {
+$('#btn-download').on('click', () => {
     $('.file-ext-dialog').slideDown(
             250,
             () => {
@@ -54,43 +68,18 @@ $(document).ready(function (event) {
         const fileInfo = getFileInfo();
         const title = fileInfo[0];
         const file_contents = fileInfo[1];
-        $.ajax({
-            data: {
-                fileTitle: title,
-                fileContent: file_contents,
-            },
-            type: 'POST',
-            url: '/home',
-            success: () => {
-                showSavedMessage();
-            }
-        });
+        saveFile(title, file_contents);
     });
 });
 
-function showSavedMessage() {
-    $('.saved-message').animate(
-        {
-            opacity: "1",
-        }, 500, () => {
-            setTimeout(
-                () => {
-                    $('.saved-message').animate({
-                        opacity: "0",
-                    }, 500);
-                }, 1000
-            );
-        }
-    );
-}
 
-function downloadFile(fileName) {
-    var blob = new Blob([[fileName]], { type: 'text/html;charset=utf-8' });
-    var link = document.createElementNS('http://www.w3.org/1999/xhtml', 'a');
-    link.href = URL.createObjectURL(blob);
-    link.download = fileName + fExtension;
-    setTimeout(link.click(), 1000);
-}
+// function downloadFile(fileName) {
+//     var blob = new Blob([[fileName]], { type: 'text/html;charset=utf-8' });
+//     var link = document.createElementNS('http://www.w3.org/1999/xhtml', 'a');
+//     link.href = URL.createObjectURL(blob);
+//     link.download = fileName + fExtension;
+//     setTimeout(link.click(), 1000);
+// }
 
 window.addEventListener('load', function () {
     document.querySelector('#sampleeditor').setAttribute('contenteditable', 'true');

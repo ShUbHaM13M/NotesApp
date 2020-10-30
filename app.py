@@ -52,7 +52,7 @@ def splashscreen():
 def home():
     if request.method == "POST":
         if "user" in session:
-            os.chdir(session['path'])
+            os.chdir(get_user_directory())
             file_name = request.form['fileTitle']
             file_content = request.form['fileContent']
             _file_operation(file_name, file_content)
@@ -66,9 +66,17 @@ def home():
 
 
 def _file_operation(file_name, file_content):
+    file_name = file_name.strip()
     file = open(f"{file_name}", 'w', encoding='utf-8')
     file.write(file_content)
     file.close()
+
+
+def get_user_directory():
+    if "user" in session:
+        return session['path']
+    else:
+        return None
 
 
 @app.route("/get-file/<name>")
@@ -148,14 +156,22 @@ def login():
         return render_template('login.html')
 
 
-@app.route('/saved-notes')
+@app.route('/saved-notes', methods=['POST', 'GET'])
 def savedNotes():
-    user = session["user"]
-    flash(f'{user}')
-    os.chdir(session['path'])
-    file_data = [open(f, 'r').read() for f in os.listdir()]
-    file_names = [f.rsplit('.')[0] for f in os.listdir()]
-    return render_template('saved-notes.html', files=dict(zip(file_names, file_data)))
+    if request.method == "POST":
+        if "user" in session:
+            os.chdir(get_user_directory())
+            file_name = request.form['fileTitle']
+            file_content = request.form['fileContent']
+            _file_operation(file_name, file_content)
+            return redirect(url_for('savedNotes'))
+    else:
+        user = session["user"]
+        flash(f'{user}'[0])
+        os.chdir(session['path'])
+        file_data = [open(f, 'r').read() for f in os.listdir()]
+        file_names = [f.rsplit('.')[0] for f in os.listdir()]
+        return render_template('saved-notes.html', files=dict(zip(file_names, file_data)))
 
 
 @app.route('/logout')
@@ -170,10 +186,20 @@ def logout():
 def about():
     try:
         user = session['user']
-        flash(user)
+        flash(user[0])
     except:
         pass
     return render_template("about.html")
+
+
+@app.route('/construction')
+def construction():
+    try:
+        user = session['user']
+        flash(user[0])
+    except:
+        pass
+    return render_template('under-construction.html')
 
 
 if __name__ == "__main__":

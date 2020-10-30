@@ -1,0 +1,9 @@
+
+.img-container {
+    height: 85vh;
+}
+
+.img-container img {
+    height: 100%;
+    width: 100%;
+}
