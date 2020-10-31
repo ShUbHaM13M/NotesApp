@@ -3,3 +3,4 @@ __pycache__/
 Users/
 test.db
 *.db
+venv

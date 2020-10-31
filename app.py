@@ -1,21 +1,22 @@
-from itertools import combinations_with_replacement
 import os
+from itertools import combinations_with_replacement
 from os import name
-import re
 
-from flask import (Flask, flash, redirect,  render_template,
-                   request, session, url_for, jsonify,
-                   send_from_directory,
-                   send_file,
-                   abort)
+from flask import (Flask, abort, flash, jsonify, redirect, render_template,
+                   request, send_file, send_from_directory, session, url_for)
 from flask_sqlalchemy import SQLAlchemy
+from flask_heroku import Heroku
 from sqlalchemy import exc
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost:5432/users'
+app.config.from_pyfile('config.py')
+app.config['TESTING'] = False
+app.config['CSRF_ENABLED'] = False
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'SeyTonic13'
 
+heroku = Heroku(app)
 db = SQLAlchemy(app)
 
 root = os.getcwd()
