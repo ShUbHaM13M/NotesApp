@@ -5,7 +5,6 @@ from os import name
 from flask import (Flask, abort, flash, jsonify, redirect, render_template,
                    request, send_file, send_from_directory, session, url_for)
 from flask_sqlalchemy import SQLAlchemy
-from flask_heroku import Heroku
 from sqlalchemy import exc
 
 app = Flask(__name__)
@@ -16,7 +15,6 @@ app.config['CSRF_ENABLED'] = False
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'SeyTonic13'
 
-heroku = Heroku(app)
 db = SQLAlchemy(app)
 
 root = os.getcwd()
