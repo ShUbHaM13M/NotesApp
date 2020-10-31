@@ -8,7 +8,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import exc
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost:5432/users'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/users'
 app.config.from_pyfile('config.py')
 app.config['TESTING'] = False
 app.config['CSRF_ENABLED'] = False
