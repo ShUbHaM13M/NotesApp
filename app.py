@@ -8,12 +8,12 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import exc
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/users'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'DATABASE_URL'
 app.config.from_pyfile('config.py')
 app.config['TESTING'] = False
 app.config['CSRF_ENABLED'] = False
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = 'SeyTonic13'
+app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
 
 db = SQLAlchemy(app)
 
