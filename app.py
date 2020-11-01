@@ -8,7 +8,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import exc
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'DATABASE_URL'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config.from_pyfile('config.py')
 app.config['TESTING'] = False
 app.config['CSRF_ENABLED'] = False
@@ -202,5 +202,4 @@ def construction():
 
 
 if __name__ == "__main__":
-    db.create_all()
     app.run(debug=True)

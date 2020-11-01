@@ -6,8 +6,8 @@ class Config(object):
     DEBUG = False
     TESTING = False
     CSRF_ENABLED = False
-    SECRET_KEY = "SeyTonic13"
-    SQLALCHEMY_DATABASE_URI = 'DATABASE_URL'
+    SECRET_KEY = os.environ.get("SECRET_KEY")
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
 
 class ProductionConfig(Config):
     DEBUG = False
