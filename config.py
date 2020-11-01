@@ -7,7 +7,7 @@ class Config(object):
     TESTING = False
     CSRF_ENABLED = False
     SECRET_KEY = "SeyTonic13"
-    SQLALCHEMY_DATABASE_URI = 'postgresql://postgresql:shubham@localhost:5432/users'
+    SQLALCHEMY_DATABASE_URI = 'DATABASE_URL'
 
 class ProductionConfig(Config):
     DEBUG = False
