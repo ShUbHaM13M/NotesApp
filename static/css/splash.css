@@ -1,0 +1,33 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&family=Nunito&display=swap");
+
+
+.splash-container {
+    display: grid;
+    place-content: center;
+    height: 100%;
+    width: 100%;
+    background-color: #2e4052;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 3;
+}
+
+.splash-background {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.5em;
+}
+
+.img-holder>img {
+    display: block;
+}
+
+
+.name {
+    color: #faff81;
+    font-family: 'Nunito';
+    transform: translateX(-12%);
+    z-index: 2;
+}

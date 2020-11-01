@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}
+Saved Notes
+{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="../static/css/saved-notes.css">
+{% endblock %}
+{% block content %}
+<br>
+{% if files|length == 0 %}
+<div class="message">
+    <p>
+        No Saved notes here...
+    </p>
+</div>
+{% else %}
+<div class="notes">
+{% for file in files %}
+
+<div class="note-container">
+    <div class="note-title">
+        {{file}}
+    </div>
+    <p class="note-contents">
+        {{files[file]}}
+    </p>
+    <div class="note-actions">
+        <a class="edit-btn">
+            <img src="../static/imgs/edit.svg" alt="quote it">
+        </a>
+        <a class="delete-btn">
+            <img src="../static/imgs/delete.svg" alt="">
+        </a>
+    </div>
+</div>
+
+{% endfor %}
+{% endif %}
+</div>
+
+<div class="delete-container">
+    <div class="delete-dialog">
+        <div class="title">Delete ?</div>
+        <div class="main">
+            <div class="filename"></div>
+            <div class="btns">
+                <button id="cancel">Cancel</button>
+                <button class="button-primary" id="delete">Delete ?</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="edit-note-container">
+    <div class="edit-note">
+        <div class="title-bar">
+            <div class="title"></div>
+            <a class="close">
+                <img style="width: 1em;" src="../static/imgs/close.svg" alt="">
+            </a>
+        </div>
+        <div class="contents"></div>
+        <div class="actions">
+            <div>
+                <a href="{{url_for('construction')}}">
+                    <img src="../static/imgs/right-quote.svg" alt="quote it">
+                </a>
+            </div>
+            <button id="save-btn" class="button-primary">Save</button>
+            <div class="download-container">
+                <button class="button-primary" type="button" id="btn-download">Download</button>
+                <div class="file-ext-dialog">
+                    <div class="ext"><input type="button" value=".txt"></div>
+                    <div class="ext top"><input type="button" value=".rtf"></div>
+                    <div class="ext top"><input type="button" value=".html"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p class="saved-message">Saved</p>
+<script src="../static/js/download.js"></script>
+<script src="../static/js/saved-notes.js" ></script>
+
+{% endblock %}

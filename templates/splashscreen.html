@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes</title>
+    <link rel="stylesheet" href="../static/css/splash.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>   
+</head>
+
+<body>
+
+    <div class="splash-container">
+        <div class="splash-background">
+            <div class="img-holder"><img src="../static/imgs/NotesLogo.svg" alt="Logo"></div>
+            <div class="name">
+                <h1>Notes</h1>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        const timeline = gsap.timeline({
+            defaults: {
+                ease: "power1.out"
+            }
+        });
+
+        timeline.fromTo('.img-holder', {
+            opacity: 0,
+            x: "100%",
+        }, {
+            x: "-12%",
+            opacity: 1,
+            duration: 1,
+            stagger: 1,
+        });
+
+        timeline.fromTo('.name', {
+            opacity: 0,
+            x: "-50%",
+        }, {
+            x: "-25%",
+            opacity: 1,
+            duration: 1,
+        });
+
+        timeline.to(".splash-container", {
+        y: "-100%",
+        duration: 1,
+        delay: 1,
+        onComplete: () => {
+            window.location.replace("{{url_for('home')}}")
+            }
+        }, "-=1",
+        );
+
+    </script>
+
+</body>
+
+</html>

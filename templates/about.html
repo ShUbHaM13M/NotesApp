@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}
+    About
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="../static/css/about.css">
+{% endblock %}
+
+{% block content %}
+    <div class="about-container">
+        <div class="contents">
+            <div class="texts">
+                Made with <span>❤</span> and <br>
+                head scratching by <br>
+                <span>Shubham Maurya</span>
+            </div>
+            <div class="social-icons">
+                <a target="_blank" href="https://www.instagram.com/ar_t__z_studios/" class="icon">
+                    <img src="../static/imgs/instagram (1).svg" alt="instagram">
+                </a>
+                <a target="_blank" href="https://www.facebook.com/shubham.maurya.1428921/" class="icon">
+                    <img src="../static/imgs/facebook.svg" alt="facebook">
+                </a>
+                <a href="mailto:shubham.heeralal@gmail.com" class="icon">
+                    <img src="../static/imgs/gmail.svg" alt="gmail">
+                </a>
+            </div>
+        </div>
+        <div>
+            <a id="bugReportBtn" class="button-primary" href="mailto:shubham.heeralal@gmail.com">Found a bug ?</a>
+        </div>
+    </div>
+    <div class="tools">
+        <div> 
+            <img src="../static/imgs/figmaLogo.svg" alt="figma">
+        </div>
+    </div>
+
+    <script>
+        $('.home').removeClass('active');
+        $('.about').addClass('active');
+
+        const icons = [
+            '../static/imgs/flaticon.svg',
+            '../static/imgs/flask-icon.svg',
+            '../static/imgs/python.svg',
+            '../static/imgs/brain.svg',
+            '../static/imgs/html5.svg',
+            '../static/imgs/css-3.svg',
+            '../static/imgs/js.svg',
+            '../static/imgs/figmaLogo.svg',
+        ];
+
+        const toolsIcon = $('.tools div img');
+        const tools = $('.tools');
+        let counter = 0;
+        setInterval(
+            () => {
+                if (counter > icons.length - 1) {
+                    counter = 0;
+                }
+                tools.animate({
+                    opacity: 0,
+                    },
+                    500, 
+                    () => {
+                        toolsIcon.attr('src', icons[counter]);
+                        tools.animate({
+                            opacity: 1,
+                        }, 500);
+                        counter++;
+                    }
+                );
+            }, 3000
+        );
+    </script>
+
+{% endblock %}

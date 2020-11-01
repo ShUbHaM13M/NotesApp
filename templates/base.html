@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}{% endblock %}</title>
+  <link rel="stylesheet" href="../static/css/style.css" />
+  <link rel="stylesheet" href="../static/css/editor.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+    integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  {% block head %} {% endblock %}
+  <style>
+    .error-message {
+      background-color: #fc8080;
+      border: 1px solid var(--color-accent);
+      color: var(--color-accent);
+      position: absolute;
+      bottom: 10%;
+      left: 50%;
+      transform: translate(-50%);
+      padding: 0.2em 0.5em;
+      border-radius: 5px;
+      text-align: center;
+      font-size: 16px;
+      animation: fade 500ms ease 1500ms forwards;
+    }
+
+    @keyframes fade {
+      0% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, 20%);
+        display: none;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <nav>
+      <div class="logo">
+        <img src="../static/imgs/NotesLogo.svg" alt="logo" />
+        <h2>Notes</h2>
+      </div>
+      <ul class="nav-list">
+        <li class="nav-items">
+          <a href="{{url_for('home')}}" class="home"> Home </a>
+        </li>
+        <li class="nav-items">
+          <a href="{{url_for('about')}}" class="about"> About </a>
+        </li>
+        <li class="nav-items">
+          {% if 'user' in session %}
+          {% else %}
+          <a href="{{url_for('register')}}" class="button-secondary"> Register </a>
+          {% endif %}
+        </li>
+        <li class="nav-items" id="login-btn">
+          <div class="user-navs-container">
+            {% if 'user' in session %}
+            <a href="#"
+              class="button-primary">
+              {% with messages = get_flashed_messages() %} 
+              {% if messages %} 
+              {% for message in messages %}
+              <p id="logged-in">{{message}}</p>
+              {% endfor %}
+              {% endif %}
+              {% endwith %}
+            </a>
+            <div class="user-navs">
+              <div class="user-nav-items btm"><a href="{{url_for('savedNotes')}}">Saved Notes</a></div>
+              <div class="user-nav-items btm"><a href="{{url_for('construction')}}">Settings</a></div>
+              <div class="user-nav-items"><a href="{{url_for('logout')}}">Logout</a></div>
+            </div>
+          </div>
+          {% else %}
+          <a href="{{url_for('login')}}" class="button-primary">
+          <p>Login</p>
+          </a>
+          {% endif %}
+          
+        </li>
+      </ul>
+      <div id="mob-view">
+        <a href="#"><img src="../static/imgs/HamburgerMenu.svg" class="ham-icon" alt="="></a>
+      </div>
+    </nav>
+    <div class="mob-list">
+      <a href="#" id="close-btn"><img src="../static/imgs/CloseBtn.svg" alt="x"></a>
+      <ul class="mob-links">
+        <li class="mob-items">
+          <a href="{{url_for('home')}}" class="home"> Home </a>
+        </li>
+        <li class="mob-items">
+          <a href="{{url_for('about')}}" class="about"> About </a>
+        </li>
+        <li class="mob-items hr-base">
+          {% if 'user' in session %}
+          {% else %}
+          <a href="{{url_for('register')}}" class="button-secondary"> Register </a>
+          {% endif %}
+        </li>
+        <li class="mob-items">
+          {% if 'user' in session %}
+          <div class="user-navs-container">
+            <a href="#"
+            class="button-primary" id="login-btn-mob">
+            {% with messages = get_flashed_messages() %} 
+            {% if messages %} 
+            {% for message in messages %}
+            <p id="logged-in">{{ message }}</p>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            </a>
+            <div class="user-navs">
+              <div class="user-nav-items btm"><a href="{{url_for('savedNotes')}}">Saved Notes</a></div>
+              <div class="user-nav-items btm"><a href="{{url_for('construction')}}">Settings</a></div>
+              <div class="user-nav-items"><a href="{{url_for('logout')}}">Logout</a></div>
+            </div>
+          </div>
+            {% else %}
+            <a href="{{url_for('login')}}" class="button-primary">
+            <p>Login</p>
+            </a>
+            {% endif %}
+        </li>
+      </ul>
+    </div>
+    {% block content %} {% endblock %}
+  </div>
+
+  
+  <script src="../static/js/app.js"></script>
+  <script type=text/javascript> $SCRIPT_ROOT={{ request.script_root|tojson|safe }}; </script>
+  <script>
+
+    $('#login-btn').on('click', (event) => {
+        $('.user-navs').slideDown(
+                250,
+                () => {
+                    $('.user-navs').css("display", "flex");
+                    closeOnScreenClick('.user-navs');
+                }
+            );
+        });
+    $('#login-btn-mob').on('click', (event) => {
+      console.log("login btn pressed")
+        $('.user-navs').slideUp(
+                250,
+                () => {
+                    $('.user-navs').css("display", "flex");
+                    closeOnScreenClick('.user-navs');
+                }
+            );
+    });
+    
+</script>
+</body> </html>

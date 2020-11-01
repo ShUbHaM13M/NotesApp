@@ -1,0 +1,6 @@
+__pycache__/
+.vscode/
+Users/
+test.db
+*.db
+venv

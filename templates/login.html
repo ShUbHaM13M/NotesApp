@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}
+Login
+{% endblock %}
+
+{% block head %}
+  <link rel="stylesheet" href="../static/css/form.css">
+{% endblock %}
+
+{% block content %}
+
+<div class="center-container">
+  <form action="{{ url_for("login")}}" method="POST" class="form">
+    <h3>Login</h3>
+    <section class="fields">
+      <div class="field-items">
+        <label for="uname">UserName :</label>
+        <input type="text" name="un" />
+      </div>
+      <div class="field-items">
+        <label for="password">Password :</label>
+        <input type="password" name="pwd" id="password" />
+      </div>
+    </section>
+    <section class="buttons">
+      <a href="{{url_for('register')}}" class="button-secondary">Register</a>
+      <button class="button-primary" type="submit">Login</button>
+    </section>
+  </form>
+</div>
+
+{% with errors = get_flashed_messages(category_filter=["error"]) %}
+{% if errors %}
+  <div class="error-message">
+    {%- for msg in errors %}
+    {{ msg }}
+    {% endfor -%}
+  </div>
+{% endif %}
+{% endwith %}
+{% endblock %}
