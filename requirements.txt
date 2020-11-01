@@ -57,9 +57,6 @@ Pygments==2.6.1
 pyinstaller @ https://github.com/pyinstaller/pyinstaller/archive/develop.tar.gz
 pyparsing==2.4.7
 pyperclip==1.8.0
-PyQt5==5.13.2
-PyQt5-sip==12.7.1
-pyqt5-tools==5.13.2.1.6rc1
 pyrsistent==0.16.0
 PySocks==1.7.1
 python-dateutil==2.8.1
